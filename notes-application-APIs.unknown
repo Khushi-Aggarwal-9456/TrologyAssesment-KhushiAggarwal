@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "8c26c3f3-3fdf-44e4-abca-5dbe9ebcf4f9",
+		"name": "iNoteBook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47227026",
+		"_collection_link": "https://kumargangesh090-5689889.postman.co/workspace/kumargangesh's-Workspace~652af714-3f00-42bd-8b04-c8a5b4824621/collection/47227026-8c26c3f3-3fdf-44e4-abca-5dbe9ebcf4f9?action=share&source=collection_link&creator=47227026"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "create a new users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"khushi\",\n  \"email\" : \"kk1@mail.com\",\n  \"password\" : \"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/mern/auth/createuser",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mern",
+								"auth",
+								"createuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login a user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\" : \"kk1@mail.com\",\n  \"password\" : \"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/mern/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mern",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetching a logged in user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjg3Mjg0ZGFmMjhhNjVjNmQ0MDY4ZjJmIn0sImlhdCI6MTc1MjMzNTU4OX0.jkgZHl2OdzQvPwjDmAM5iFQt87gd7Fqu5Rsdh-Wmirc"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/mern/auth/getUser",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mern",
+								"auth",
+								"getUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update password of user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\" : \"ka@mail.com\",\r\n  \"password\" : \"ka123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/mern/auth/updatePassword",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mern",
+								"auth",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "fetching user's all notes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjkyYWEyMzk5MzdjZmZjOWJiYTY1NjMwIn0sImlhdCI6MTc2NDQwMTc1N30.gBP25PRM8-KWV5x2WGGCPaqN1bDwwLW1YOJCkPQ7rIM"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/mern/notes/fetchallnotes",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mern",
+								"notes",
+								"fetchallnotes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add a new note",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjg3Mjg0ZGFmMjhhNjVjNmQ0MDY4ZjJmIn0sImlhdCI6MTc1Mjk1NzkwNH0.iwIKO1fRYxbk1h4BJ_NlxOr7V6dVaASFIfQ1cD-7pMg"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\" : \"bootstrap\",\n  \"description\" : \"this is python\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/mern/notes/addNote",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mern",
+								"notes",
+								"addNote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updating an existing note",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjg2OTdlYjdhMjFmNTQyYjM3NGIwMWVkIn0sImlhdCI6MTc1MTc0NDk5OH0.98A3XgiwrsAkrBBTYYiuStISxOvF0aaqx75UKxgw-8s"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\" : \"t2\",\n  \"description\" : \"this is updated t2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/mern/Notes/updateNote/686983714a43fc54ff45054d",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mern",
+								"Notes",
+								"updateNote",
+								"686983714a43fc54ff45054d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete an existing note",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjg3Mjg0ZGFmMjhhNjVjNmQ0MDY4ZjJmIn0sImlhdCI6MTc1Mjg1NTI4Mn0.9s4zKRwvRk6HAl5oC2-uH95SYL5qUl7naN-h8PN1Qns"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/mern/Notes/deleteNote/687a73743ef69e071bd66f49",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mern",
+								"Notes",
+								"deleteNote",
+								"687a73743ef69e071bd66f49"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
