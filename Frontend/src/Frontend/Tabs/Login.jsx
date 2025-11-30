@@ -83,7 +83,11 @@ export default function Login() {
           <input type="text" value={password} onChange={handlePassword} />
         </div>
 
-        <p>{errorMessage}</p>
+        <p style={{
+          color:'green',
+          fontSize:"20px",
+          fontWeight:"bold"
+        }}>{errorMessage}</p>
 
         <button type="submit" className="btn btn-success" onClick={loginUser}>Login</button>
 
