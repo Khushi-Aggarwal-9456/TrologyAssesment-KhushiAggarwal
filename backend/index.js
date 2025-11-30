@@ -24,7 +24,7 @@ app.use(express.json()) // middleware to ready values from body of request
 // available routes 
 
 app.use("/mern/auth", require("./routes/auth")); // this is the parent endpoint for authentication related routes
-app.use("/mern/notes", require("./routes/notes")); // this is the parent endpoint for notes related routes
+app.use("/mern/items", require("./routes/notes")); // this is the parent endpoint for notes related routes
 
 app.listen(port, () => {
   console.log(`iNoteBook app listening on port ${port}`)

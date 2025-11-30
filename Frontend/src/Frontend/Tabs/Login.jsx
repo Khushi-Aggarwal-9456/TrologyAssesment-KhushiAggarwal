@@ -6,7 +6,7 @@ import "./UserAuth.css";
 
 export default function Login() {
 
-  const [email, setEmail] = useState("ka1@mail.com");
+  const [email, setEmail] = useState("ka@mail.com");
   const [password, setPassword] = useState("12345");
   const [errorMessage, setErrorMessage] = useState("");
 

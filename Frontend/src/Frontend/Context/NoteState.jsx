@@ -12,10 +12,15 @@ const NoteState = (props) => {
     const [userAuth, setUserAuth] = useState("");
     const [userEmail, setUserEmail] = useState("");
 
+    const [limit, setLimit] = useState(5);
+    const [impLimit, setImpLimit] = useState(5);
+
     // fetching all the notes
 
     const fetchAllNotes = async () => {
-        const response = await (fetch(`${host}/mern/notes/fetchallnotes`, {
+        console.log('in fetch notes, limit: ', limit);
+        // const response = await (fetch(`${host}/mern/items/fetchallItems`, {
+        const response = await (fetch(`${host}/mern/items/fetchallItems/${limit}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -30,13 +35,6 @@ const NoteState = (props) => {
 
         let importantNotes = [];
         let remainNotes = [];
-
-        // allNotes.map((note) =>{
-        //     note.pinned === true ?
-        //         importantNotes.push(note)
-        //     :
-        //         remainNotes.push(note)
-        // });
 
         for(let g=0;g<allNotes.length;g++){
             if(allNotes[g].pinned === true){
@@ -58,7 +56,7 @@ const NoteState = (props) => {
 
         // Now we are going to make API calls 
 
-        const response = await (fetch(`${host}/mern/notes/addNote`, {
+        const response = await (fetch(`${host}/mern/items/addItem`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +75,7 @@ const NoteState = (props) => {
 
         // Now we are going to make API calls 
 
-        const response = await (fetch(`${host}/mern/Notes/updateNote/${id}`, {
+        const response = await (fetch(`${host}/mern/items/updateItem/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -100,7 +98,7 @@ const NoteState = (props) => {
 
     const deleteNote = async (id) => {
 
-        const response = await (fetch(`${host}/mern/Notes/deleteNote/${id}`, {
+        const response = await (fetch(`${host}/mern/items/deleteItem/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -118,7 +116,7 @@ const NoteState = (props) => {
     }
 
     return (
-        <NoteContext.Provider value={{ notes, addNote, updateNote, deleteNote, fetchAllNotes, alertMessage, setAlertMessage, toShow, toggleToShow, userAuth, setUserAuth, userEmail, setUserEmail, impNotes, setImpNotes }}>
+        <NoteContext.Provider value={{ notes, addNote, updateNote, deleteNote, fetchAllNotes, alertMessage, setAlertMessage, toShow, toggleToShow, userAuth, setUserAuth, userEmail, setUserEmail, impNotes, setImpNotes, limit, setLimit, impLimit, setImpLimit }}>
             {props.children}
         </NoteContext.Provider>
     )

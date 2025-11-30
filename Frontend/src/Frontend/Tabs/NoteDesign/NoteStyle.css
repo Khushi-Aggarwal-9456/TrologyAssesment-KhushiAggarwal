@@ -29,6 +29,16 @@
     margin-top: 5%;
 }
 
+/* .titleanddate{
+    border: 1px solid white;
+} */
+
+.titleanddate h6{
+    font-size: 16px;
+    font-weight: bolder;
+    margin-top: 2%;
+}
+
 
 @media(min-width : 350px){
 

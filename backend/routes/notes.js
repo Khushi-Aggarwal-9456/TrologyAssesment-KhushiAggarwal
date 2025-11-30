@@ -6,14 +6,17 @@ const {body, validationResult} = require("express-validator");
 
 // ROUTE 1. to fetch all notes of logged user using "/mern/notes/fetchallnotes" using GET request and Login required
 
-router.get("/fetchAllNotes", FetchUser, async(req, res) => {  
-    const notes = await Notes.find({ user : req.user.id });
+router.get("/fetchAllItems/:limit", FetchUser, async(req, res) => {  
+    let notes = await Notes.find({ user : req.user.id });
+    const limit = req.params.limit;
+    // notes = notes.slice(0, parseInt(limit));
     res.status(200).send({notes});
+    // res.status(200).send({slicedNotes, limit, length : slicedNotes.length});
 });
 
 // ROUTE 2. to add a new note using "/mern/notes/addNote" using POST request and Login required
 
-router.post("/addNote", FetchUser, [
+router.post("/addItem", FetchUser, [
     body("title").isLength({ min : 1 }),
     body("description").isLength({ min : 1 })
 ], async(req, res) => {
@@ -38,7 +41,7 @@ router.post("/addNote", FetchUser, [
 
 // ROUTE 3. to update a Note using "/mern/Notes/updateNote" by PUT request and Login required
 
-router.put("/updateNote/:id", FetchUser, [
+router.put("/updateItem/:id", FetchUser, [
     body("title").isLength({ min : 1 }),
     body("description").isLength({ min : 1 })
 ], async(req, res) => {
@@ -75,7 +78,7 @@ router.put("/updateNote/:id", FetchUser, [
 
 // ROUTE 4. to delete a Note using "/mern/Notes/deleteNote" by DELETE request and Login required
 
-router.delete("/deleteNote/:id", FetchUser, async(req, res) => {
+router.delete("/deleteItem/:id", FetchUser, async(req, res) => {
     try{
         let noteToUpdate = await Notes.findById(req.params.id); // fetching the note using id receiving from parameters
         if(!noteToUpdate){

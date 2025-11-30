@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import noteContext from '../../Context/NoteContext';
 import "./NoteStyle.css";
+import { format } from "date-fns";
 
 export default function NoteItem(props) {
 
@@ -28,7 +29,12 @@ export default function NoteItem(props) {
             <div className="card">
                 <div className="card-body">
 
-                    <h5 className="card-title">{note.title}</h5>
+                    <div className="titleanddate d-flex justify-content-between">
+                        <h5 className="card-title">{note.title}</h5>
+                        <h6>{
+                            new Date(note.date).toISOString().split("T")[0]   
+                        }</h6>
+                    </div>
 
                     <pre className="card-text">{note.description}</pre>
 

@@ -8,7 +8,7 @@ export default function About() {
 
   const context = useContext(noteContext);
 
-  const { notes, fetchAllNotes, addNote, updateNote, setAlertMessage, toggleToShow, userAuth, impNotes } = context;
+  const { notes, fetchAllNotes, addNote, updateNote, setAlertMessage, toggleToShow, userAuth, impNotes, limit, setLimit, impLimit, setImpLimit } = context;
 
   const [newNoteTitle, setNewNoteTitle] = useState("");
   const [newNoteDesc, setNewNoteDesc] = useState("");
@@ -41,7 +41,8 @@ export default function About() {
   const [notesPrevBtn, setNotesPrevBtn] = useState(false);
   const [notesNextBtn, setNotesNextBtn] = useState(false);
 
-  const [limit, setLimit] = useState(notes.length);
+  const [notesLimit, setNotesLimit] = useState(notes.length);
+  const [impNotesLimit, setImpNotesLimit] = useState(impNotes.length);
 
   const impNotePrevbtn = () => {
     if (impNotesPrev >= 0) {
@@ -71,9 +72,16 @@ export default function About() {
     }
   }
 
-  const handleOption =(e) => {
+  const handleNotesLimit = (e) => {
+    setNotesLimit(e.target.value);
+    // alert(e.target.value);
     setLimit(e.target.value);
-    console.log(e.target.value);
+  }
+
+  const handleImpNotesLimit = (e) => {
+    setImpNotesLimit(e.target.value);
+    // alert(e.target.value+" "+impNotes.length);
+    setImpLimit(e.target.value);
   }
 
   const handleNewNoteArrow = () => {
@@ -289,12 +297,19 @@ export default function About() {
             </div>
 
             {
-              impNotes.slice(impNotesPrev, impNotesNext).length > 0 ?
+              impNotes.slice(0, parseInt(impLimit)).length > 0 ?
                 <div style={{
                   marginTop: "5%"
                 }}>
                   <div className="alllnotesandicon d-flex justify-content-between" >
-                    <h1>Important Notes</h1>
+                    <h1>UnActive Notes</h1>
+
+                    <select value={impNotesLimit} onChange={handleImpNotesLimit}>
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                    </select>
+
                     <i className={impNoteArrow} onClick={handleImpNoteArrow} />
                   </div>
 
@@ -305,7 +320,7 @@ export default function About() {
 
                     <div className="row impNotesList">
                       {
-                        impNotes.slice(impNotesPrev, impNotesNext).map((note) => {
+                        impNotes.slice(0, parseInt(impLimit)).map((note) => {
                           return (
                             <NoteItem note={note} updateCurrentNote={updateNNote} />
                           )
@@ -317,7 +332,7 @@ export default function About() {
                       border: "2px solid white",
                       padding: "1%"
                     }}>
-{/* 
+                      {/* 
                       <button className='btn btn-primary' disabled={notesPrevBtn} onClick={NotePrevbtn}>previous</button>
                       <button className='btn btn-primary' disabled={notesNextBtn} onClick={NoteNextbtn}>next</button> */}
 
@@ -334,23 +349,19 @@ export default function About() {
                 <></>
             }
 
-            {/* {
-              <center><h1>{notes.slice(notesPrev, nonext).length}</h1></center>
-            } */}
-
             {
               // notes.length > 0 ?
-              notes.length > 0 ?
+              notes.slice(0, parseInt(limit)).length > 0 ?
                 <div style={{
                   marginTop: "5%"
                 }}>
                   <div className="alllnotesandicon d-flex justify-content-between">
-                    <h1>Available Notes</h1>
-                    
-                    <select  onClick={handleOption} value={limit}>
+                    <h1>Active Notes</h1>
+
+                    <select value={notesLimit} onChange={handleNotesLimit}>
                       <option value="5">5</option>
                       <option value="10">10</option>
-                      <option value="">20</option>
+                      <option value="20">20</option>
                     </select>
 
                     <i className={allNoteArrow} onClick={handleAllNoteArrow} />
@@ -362,7 +373,7 @@ export default function About() {
 
                     <div className="row impNotesList">
                       {
-                        notes.map((note) => {
+                        notes.slice(0, parseInt(limit)).map((note) => {
                           return <NoteItem note={note} updateCurrentNote={updateNNote} />
                         })
                       }
