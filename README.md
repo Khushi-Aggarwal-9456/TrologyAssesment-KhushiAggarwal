@@ -70,10 +70,10 @@ npm run dev
 
 | Method | Endpoint           | Description            |
 | ------ | ------------------ | ---------------------- |
-| GET   | `/mern/notes/fetchAllNotes` | To fetch all user notes  |
-| POST   | `/mern/notes/addNote`  |To add a new note         |
-| PUT   | `/mern/notes//updateNote/:id`  |To Upadte a note         |
-| DELETE   | `/mern/notes//deleteNote/:id`  |To delete a note         |
+| GET   | `/mern/items/fetchAllItems/:limit` | To fetch all user notes  |
+| POST   | `/mern/items/addItem`  |To add a new note         |
+| PUT   | `/mern/items/updateItem/:id`  |To Upadte a note         |
+| DELETE   | `/mern/items/deleteItem/:id`  |To delete a note         |
 
 
 ## 🧪 Testing
