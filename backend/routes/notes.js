@@ -6,9 +6,12 @@ const {body, validationResult} = require("express-validator");
 
 // ROUTE 1. to fetch all notes of logged user using "/mern/notes/fetchallnotes" using GET request and Login required
 
-router.get("/fetchAllItems/:limit", FetchUser, async(req, res) => {  
-    let notes = await Notes.find({ user : req.user.id });
+router.get("/fetchAllItems/:limit/:sort", FetchUser, async(req, res) => {  
+    // console.log('in /fetch, sort: ',req.params.sort);
     const limit = req.params.limit;
+    const sort = req.params.sort;
+    // let notes = await Notes.find({ user : req.user.id }).sort({ [sort] : 'asc' });
+    let notes = await Notes.find({ user : req.user.id });
     // notes = notes.slice(0, parseInt(limit));
     res.status(200).send({notes});
     // res.status(200).send({slicedNotes, limit, length : slicedNotes.length});
