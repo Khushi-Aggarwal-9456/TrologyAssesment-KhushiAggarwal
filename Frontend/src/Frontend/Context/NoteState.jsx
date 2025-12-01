@@ -14,13 +14,15 @@ const NoteState = (props) => {
 
     const [limit, setLimit] = useState(5);
     const [impLimit, setImpLimit] = useState(5);
+    const [sort, setSort] = useState('date');
 
     // fetching all the notes
 
     const fetchAllNotes = async () => {
-        console.log('in fetch notes, limit: ', limit);
+        console.log('sort by: ',sort);
+        // console.log('in fetch notes, limit: ', limit);
         // const response = await (fetch(`${host}/mern/items/fetchallItems`, {
-        const response = await (fetch(`${host}/mern/items/fetchallItems/${limit}`, {
+        const response = await (fetch(`${host}/mern/items/fetchallItems/${limit}/${sort}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +118,7 @@ const NoteState = (props) => {
     }
 
     return (
-        <NoteContext.Provider value={{ notes, addNote, updateNote, deleteNote, fetchAllNotes, alertMessage, setAlertMessage, toShow, toggleToShow, userAuth, setUserAuth, userEmail, setUserEmail, impNotes, setImpNotes, limit, setLimit, impLimit, setImpLimit }}>
+        <NoteContext.Provider value={{ notes, setNotes, addNote, updateNote, deleteNote, fetchAllNotes, alertMessage, setAlertMessage, toShow, toggleToShow, userAuth, setUserAuth, userEmail, setUserEmail, impNotes, setImpNotes, limit, setLimit, impLimit, setImpLimit, sort, setSort }}>
             {props.children}
         </NoteContext.Provider>
     )
