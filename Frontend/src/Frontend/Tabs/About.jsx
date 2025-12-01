@@ -8,7 +8,7 @@ export default function About() {
 
   const context = useContext(noteContext);
 
-  const { notes, fetchAllNotes, addNote, updateNote, setAlertMessage, toggleToShow, userAuth, impNotes, limit, setLimit, impLimit, setImpLimit } = context;
+  const { notes, setNotes, fetchAllNotes, addNote, updateNote, setAlertMessage, toggleToShow, userAuth, impNotes, limit, setLimit, impLimit, setImpLimit, sort, setSort } = context;
 
   const [newNoteTitle, setNewNoteTitle] = useState("");
   const [newNoteDesc, setNewNoteDesc] = useState("");
@@ -36,39 +36,45 @@ export default function About() {
   const [notesPrev, setNotesPrev] = useState(0);
   const [notesNext, setNotesNext] = useState(6);
 
-  const [impNotesPrevBtn, setImpNotesPrevBtn] = useState(false);
-  const [impNotesNextBtn, setImpNotesNextBtn] = useState(false);
-  const [notesPrevBtn, setNotesPrevBtn] = useState(false);
-  const [notesNextBtn, setNotesNextBtn] = useState(false);
+  const [impNotesPrevBtn, setImpNotesPrevBtn] = useState(true);
+  const [impNotesNextBtn, setImpNotesNextBtn] = useState(true);
+  const [notesPrevBtn, setNotesPrevBtn] = useState(true);
+  const [notesNextBtn, setNotesNextBtn] = useState(true);
+
+  const [notesStart, setNotesStart] = useState(0);
+  const [notesEnd, setNotesEnd] = useState(limit);
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [notesLimit, setNotesLimit] = useState(notes.length);
   const [impNotesLimit, setImpNotesLimit] = useState(impNotes.length);
 
-  const impNotePrevbtn = () => {
-    if (impNotesPrev >= 0) {
-      setImpNotesNext(parseInt(impNotesNext) - 6)
-      setImpNotesPrev(parseInt(impNotesPrev) - 6)
-    }
-  }
-  const impNoteNextbtn = () => {
-    if (impNotesNext !== impNotes.length - 1) {
-      setImpNotesNext(parseInt(impNotesNext) + 6)
-      setImpNotesPrev(parseInt(impNotesPrev) + 6)
+  const [sortBy, setSortBy] = useState('date');
 
-    }
+  const handleSortBy = (e) => {
+    setSortBy(e.target.value);
+    setSort(e.target.value);
   }
 
-  const NotePrevbtn = () => {
-    if (notesPrev >= 0) {
-      setNotesNext(parseInt(notesNext) - 6)
-      setNotesPrev(parseInt(notesPrev) - 6)
+  const handlePrevBtn = () => {
+    if (currentPage === (notes.length % limit) + 1) {
+      setNotesStart(notes.length - (notes.length % limit));
+      setNotesEnd(notes.length);
+    } else {
+      setNotesStart(parseInt(currentPage) * parseInt(limit));
+      setNotesEnd(parseInt(notesEnd) + parseInt(limit));
+      console.log('in handleNextBtn, start:' + notesStart + ' end ', notesEnd);
     }
   }
-  const NoteNextbtn = () => {
-    if (notesNext !== notes.length - 1) {
-      setNotesNext(parseInt(notesNext) + 6)
-      setNotesPrev(parseInt(notesPrev) + 6)
 
+  const handleNextBtn = () => {
+    if (currentPage === (notes.length % limit) + 1) {
+      setNotesStart(notes.length - (notes.length % limit));
+      setNotesEnd(notes.length);
+    } else {
+      setNotesStart(parseInt(currentPage) * parseInt(limit));
+      setNotesEnd(parseInt(notesEnd) + parseInt(limit));
+      console.log('in handleNextBtn, start:' + notesStart + ' end ', notesEnd);
     }
   }
 
@@ -332,14 +338,7 @@ export default function About() {
                       border: "2px solid white",
                       padding: "1%"
                     }}>
-                      {/* 
-                      <button className='btn btn-primary' disabled={notesPrevBtn} onClick={NotePrevbtn}>previous</button>
-                      <button className='btn btn-primary' disabled={notesNextBtn} onClick={NoteNextbtn}>next</button> */}
-
-
-                      <button className='btn btn-primary' disabled={impNotesPrevBtn} onClick={impNotePrevbtn}>previous</button>
-                      <button className='btn btn-primary' disabled={impNotesNextBtn} onClick={impNoteNextbtn}>next</button>
-
+                      
                     </div>
 
                   </div>
@@ -364,6 +363,11 @@ export default function About() {
                       <option value="20">20</option>
                     </select>
 
+                    <select value={sortBy} onChange={handleSortBy}>
+                      <option value="date">Date</option>
+                      <option value="title">Title</option>
+                    </select>
+
                     <i className={allNoteArrow} onClick={handleAllNoteArrow} />
                   </div>
 
@@ -373,18 +377,15 @@ export default function About() {
 
                     <div className="row impNotesList">
                       {
-                        notes.slice(0, parseInt(limit)).map((note) => {
-                          return <NoteItem note={note} updateCurrentNote={updateNNote} />
-                        })
+                        sortBy === 'date' ?
+                          notes.sort((a, b) => a.date - b.date).slice(0, parseInt(limit)).map((note) => {
+                            return <NoteItem note={note} updateCurrentNote={updateNNote} />
+                          })
+                          :
+                          notes.sort((a, b) => a.title.localeCompare(b.title)).slice(0, parseInt(limit)).map((note) => {
+                            return <NoteItem note={note} updateCurrentNote={updateNNote} />
+                          })
                       }
-                    </div>
-                    <div className="buttons d-flex justify-content-around " style={{
-                      border: "2px solid white",
-                      padding: "1%"
-                    }}>
-                      <button className='btn btn-primary' onClick={NotePrevbtn}>previous</button>
-                      <button className='btn btn-primary' onClick={NoteNextbtn}>next</button>
-
                     </div>
 
                   </div>
