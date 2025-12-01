@@ -49,11 +49,14 @@ MONGO_URI="mongodb+srv://machinelearning0770:gk_MONGODB_9555@cryptodiary.64j6drl
 ### Start Backend
 
 cd backend
+npm install 
+npm i nodemon bcryptjs cors express-validator mongodb mongoose jsonwebtoken 
 nodemon index.js
 
 ### Start Frontend
 
 cd frontend
+npm install
 npm run dev
 
 ---
